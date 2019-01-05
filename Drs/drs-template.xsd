@@ -1,0 +1,365 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      DRS XML Format description v1.0.
+
+      Copyright 1999-2012 The MathWorks, Inc.
+
+      Note: all the fields that are for GUI use, and thus declared as optional, can be omitted.
+      The product will still accept the file and fill automatically those fields when regenerating the DRS.
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <!-- global element -->
+  
+  <xsd:element name="global">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	This node is the root of the document. It represents the global scope.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	<xsd:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="scalar" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="pointer" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="array" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="struct" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="function" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- file element -->
+
+  <xsd:element name="file">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	This node represent a source file. It is necessary to define static variables.
+
+	Attributes:
+	* name: the name of the file. This attribute is mandatory.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	<xsd:element ref="scalar" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="pointer" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="array" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="struct" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="function" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="comment" type="xsd:string" use="optional"/>
+    </xsd:complexType>   
+  </xsd:element>
+
+  <!-- scalar element -->
+
+  <xsd:simpleType name="base_type_type">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	The base_type field is for GUI use. It is used to compute the min and max values possible in ranges.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="(int|uint|float)[0-9]{1,3}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="attributes_type">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Attributes of a variable. Only the static qualifier is required, to avoid conflicts between
+	static variables having the same name.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="volatile"/>
+      <xsd:enumeration value="extern"/>
+      <xsd:enumeration value="static"/>
+      <xsd:enumeration value="const"/>
+      <xsd:enumeration value="unused"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="list_attributes_type">
+    <xsd:list itemType="attributes_type"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="init_mode_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MAIN_GENERATOR"/>
+      <xsd:enumeration value="IGNORE"/>
+      <xsd:enumeration value="INIT"/>
+      <xsd:enumeration value="PERMANENT"/>
+      <xsd:enumeration value="disabled"/>
+      <xsd:enumeration value="unsupported"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="init_modes_allowed_type">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	init_modes_allowed is a mask defining the allowed init modes
+	1: NO is allowed
+	2: INIT is allowed
+	4: PERMANENT is allowed
+	8: MAIN_GENERATOR is allowed
+	It is for GUI use.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:integer">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="15"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="range_type">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Supported range format, for example: min..max, 1..2, -.1..1.0, 2..max
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="disabled|unsupported|.*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="global_assert_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="YES"/>
+      <xsd:enumeration value="NO"/>
+      <xsd:enumeration value="disabled"/>
+      <xsd:enumeration value="unsupported"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="scalar">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Scalar element.
+
+	Attributes:
+	* name : The name of the scalar. This attribute is mandatory only when declaring a root symbol or a struct field.
+	* line : The line in the source where the scalar is defined. This attribute is for GUI use and is optional.
+	* base_type : The base type of the scalar (see base_type_type for more details). This attribute is for GUI use and is optional.
+	* attributes : The attributes of the scalar (see list_attributes_type for more details). This attribute is mandatory only when
+	declaring a static scalar.
+	* complete_type : The complete type of the scalar in a user readable form. This attribute is for GUI use and is optional.
+	* init_mode : The init mode for the scalar. This attribute is mandatory.
+	* init_modes_allowed : The selectable choices between the possible init modes. This attribute is for GUI use and is optional.
+	* init_range : The range associated to the init mode. This attribute is mandatory.
+	* global_assert : The global assert mode. This attribute is mandatory.
+	* assert_range : The range associated to the global assert mode. This attribute is mandatory.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="optional"/>
+      <xsd:attribute name="line" type="xsd:nonNegativeInteger" use="optional"/>
+      <xsd:attribute name="base_type" type="base_type_type" use="optional"/>
+      <xsd:attribute name="attributes" type="list_attributes_type" use="optional"/>
+      <xsd:attribute name="complete_type" type="xsd:string" use="optional"/>
+      <xsd:attribute name="init_mode" type="init_mode_type" use="required"/>
+      <xsd:attribute name="init_modes_allowed" type="init_modes_allowed_type" use="optional"/>
+      <xsd:attribute name="init_range" type="range_type" use="required"/>
+      <xsd:attribute name="global_assert" type="global_assert_type" use="required"/>
+      <xsd:attribute name="assert_range" type="range_type" use="required"/>
+      <xsd:attribute name="non_applicable" type="xsd:nonNegativeInteger" use="optional"/>
+      <xsd:attribute name="comment" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- pointer element -->
+
+  <xsd:simpleType name="initialize_pointer_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="May-be NULL"/>
+      <xsd:enumeration value="Not NULL"/>
+      <xsd:enumeration value="NULL"/>
+      <xsd:enumeration value="disabled"/>
+      <xsd:enumeration value="unsupported"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="single_value_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([0-9]+|min|max|disabled|unsupported)?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="init_allocated_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MAIN_GENERATOR"/>
+      <xsd:enumeration value="NONE"/>
+      <xsd:enumeration value="SINGLE"/>
+      <xsd:enumeration value="MULTI"/>
+      <xsd:enumeration value="disabled"/>
+      <xsd:enumeration value="unsupported"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="pointer">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Pointer element. This node is ignored in C++.
+
+	Attributes:
+	* name : The name of the pointer. This attribute is mandatory only when declaring a root symbol or a struct field.
+	* line : The line in the source where the pointer is defined. This attribute is for GUI use and is optional.
+	* attributes : The attributes of the pointer (see list_attributes_type for more details). This attribute is mandatory only when
+	declaring a static pointer.
+	* complete_type : The complete type of the pointer in a user readable form. This attribute is for GUI use and is optional.
+	* init_mode : The init mode for the pointer. This attribute is mandatory.
+	* init_modes_allowed : The selectable choices between the possible init modes. This attribute is for GUI use and is optional.
+	* initialize_pointer : The value to initialize the pointer (see initialize_pointer_type for more details). This attribute is
+	mandatory.
+	* number_allocated : The size to allocate for the object pointed by the stubbed pointer. This attribute is mandatory.
+	* init_pointed : The init mode for the pointed object (see init_allocated_type for more details). This attribute is
+	mandatory. A range can be set in a sub-element only if this mode is set to SINGLE or MULTI.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	<xsd:element ref="scalar" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="pointer" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="array" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="struct" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="function" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="optional"/>
+      <xsd:attribute name="line" type="xsd:positiveInteger" use="optional"/>
+      <xsd:attribute name="attributes" type="list_attributes_type" use="optional"/>
+      <xsd:attribute name="complete_type" type="xsd:string" use="optional"/>
+      <xsd:attribute name="init_mode" type="init_mode_type" use="required"/>
+      <xsd:attribute name="init_modes_allowed" type="init_modes_allowed_type" use="optional"/>
+      <xsd:attribute name="initialize_pointer" type="initialize_pointer_type" use="required"/>
+      <xsd:attribute name="number_allocated" type="single_value_type" use="required"/>
+      <xsd:attribute name="init_pointed" type="init_allocated_type" use="required"/>
+      <xsd:attribute name="non_applicable" type="xsd:nonNegativeInteger" use="optional"/>
+      <xsd:attribute name="comment" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- array element -->
+
+  <xsd:element name="array">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Array element.
+
+	Attributes:
+	* name : The name of the array. This attribute is mandatory only when declaring a root symbol or a struct field.
+	* line : The line in the source where the array is defined. This attribute is for GUI use and is optional.
+	* attributes : The attributes of the array (see list_attributes_type for more details). This attribute is mandatory only when
+	declaring a static array.
+	* complete_type : The complete type of the array in a user readable form. This attribute is for GUI use and is optional.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	<xsd:element ref="scalar" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="pointer" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="array" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="struct" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="optional"/>
+      <xsd:attribute name="line" type="xsd:positiveInteger" use="optional"/>
+      <xsd:attribute name="attributes" type="list_attributes_type" use="optional"/>
+      <xsd:attribute name="complete_type" type="xsd:string" use="optional"/>
+      <xsd:attribute name="non_applicable" type="xsd:nonNegativeInteger" use="optional"/>
+      <xsd:attribute name="comment" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- struct element -->
+
+  <xsd:element name="struct">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Struct element.
+
+	Attributes:
+	* name : The name of the struct. This attribute is mandatory only when declaring a root symbol or a struct field.
+	* line : The line in the source where the struct is defined. This attribute is for GUI use and is optional.
+	* attributes : The attributes of the struct (see list_attributes_type for more details). This attribute is mandatory only when
+	declaring a static struct.
+	* complete_type : The complete type of the struct in a user readable form. This attribute is for GUI use and is optional.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	<xsd:element ref="scalar" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="pointer" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="array" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="struct" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="optional"/>
+      <xsd:attribute name="line" type="xsd:positiveInteger" use="optional"/>
+      <xsd:attribute name="attributes" type="list_attributes_type" use="optional"/>
+      <xsd:attribute name="complete_type" type="xsd:string" use="optional"/>
+      <xsd:attribute name="non_applicable" type="xsd:nonNegativeInteger" use="optional"/>
+      <xsd:attribute name="comment" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- function element -->
+
+  <xsd:simpleType name="main_generator_called_type">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MAIN_GENERATOR"/>
+      <xsd:enumeration value="YES"/>
+      <xsd:enumeration value="NO"/>
+      <xsd:enumeration value="disabled"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="function_attributes_type">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Attributes of a function. Only the static qualifier is required, to avoid conflicts between
+	static functions having the same name.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="extern"/>
+      <xsd:enumeration value="static"/>
+      <xsd:enumeration value="unused"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="list_function_attributes_type">
+    <xsd:list itemType="function_attributes_type"/>
+  </xsd:simpleType>
+
+  <xsd:element name="function">
+    <xsd:annotation>
+      <xsd:documentation xml:lan="en">
+	Struct element.
+
+	Attributes:
+	* name : The name of the function. This attribute is optional when declaring a function pointer.
+	* line : The line in the source where the function is defined. This attribute is for GUI use and is optional.
+	* main_generator_called : Set if a user defined function will be called by the main generator. This attribute is mandatory.
+	* attributes : The attributes of the function (see list_attributes_type for more details). This attribute is mandatory only when
+	declaring a static function.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	<xsd:element ref="scalar" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="pointer" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="array" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="struct" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="optional"/>
+      <xsd:attribute name="line" type="xsd:positiveInteger" use="optional"/>
+      <xsd:attribute name="main_generator_called" type="main_generator_called_type" use="required"/>
+      <xsd:attribute name="attributes" type="list_function_attributes_type" use="optional"/>
+      <xsd:attribute name="non_applicable" type="xsd:nonNegativeInteger" use="optional"/>
+      <xsd:attribute name="comment" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
