@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='AutosarLib' version='1.0'>
+	<schema type='-xmlschema' package='' name='AutosarClass'>
+		<xjc-options>
+			<xjc-option name='-extension' value='true'/>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='xml-resources/jaxb/AutosarClass/AUTOSAR_4-2-1.xsd' origLocation='../../Autosar/AutosarXsd/Autosar/4_2_1/AUTOSAR_4-2-1.xsd'/>
+		</schema-sources>
+		<bindings>
+			<binding origLocation='../../Autosar/AutosarXsd/Autosar/4_2_1/AUTOSAR_4-2-1.xml' location='xml-resources/jaxb/AutosarClass/AUTOSAR_4-2-1.xml'/>
+		</bindings>
+		<catalog/>
+	</schema>
+</schemas>

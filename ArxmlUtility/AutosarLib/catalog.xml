@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/ssjz9/Documents/GitHub/ArxmlUtility/ArxmlUtility/AutosarLib/../../Autosar/AutosarXsd/Autosar/4_2_1/AUTOSAR_4-2-1.xsd" uri="xml-resources/jaxb/AutosarClass/AUTOSAR_4-2-1.xsd"/>
+    <system systemId="file:/C:/Users/ssjz9/Documents/GitHub/ArxmlUtility/Autosar/AutosarXsd/Autosar/4_2_1/xml.xsd" uri="xml-resources/jaxb/AutosarClass/xml.xsd"/>
+    <system systemId="file:/C:/Users/ssjz9/Documents/GitHub/ArxmlUtility/ArxmlUtility/AutosarLib/../../Autosar/AutosarXsd/Autosar/4_2_1/AUTOSAR_4-2-1.xjb" uri="xml-resources/jaxb/AutosarClass/AUTOSAR_4-2-1.xjb.xml"/>
+    <system systemId="file:/C:/Users/ssjz9/Documents/GitHub/ArxmlUtility/ArxmlUtility/AutosarLib/../../Autosar/AutosarXsd/Autosar/4_2_1/AUTOSAR_4-2-1.xml" uri="xml-resources/jaxb/AutosarClass/AUTOSAR_4-2-1.xml"/>
+</catalog>
