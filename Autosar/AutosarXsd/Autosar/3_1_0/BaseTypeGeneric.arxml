@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/3.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/3.1.0 autosar.xsd">
+	<TOP-LEVEL-PACKAGES>
+		<AR-PACKAGE>
+			<SHORT-NAME>BaseTypeGeneric</SHORT-NAME>
+			<ELEMENTS>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>uint8</SHORT-NAME>
+					<DESC>
+						<L-2>8 bit unsigned integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>8</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>NONE</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>int8</SHORT-NAME>
+					<DESC>
+						<L-2>8 bit signed integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>8</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>2C</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>uint16</SHORT-NAME>
+					<DESC>
+						<L-2>16 bit unsigned integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>16</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>NONE</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>int16</SHORT-NAME>
+					<DESC>
+						<L-2>16 bit signed integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>16</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>2C</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>uint32</SHORT-NAME>
+					<DESC>
+						<L-2>32 bit unsigned integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>32</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>NONE</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>int32</SHORT-NAME>
+					<DESC>
+						<L-2>32 bit signed integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>32</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>2C</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>unsigned_integer</SHORT-NAME>
+					<DESC>
+						<L-2>32 bit unsigned integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>32</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>NONE</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>signed_integer</SHORT-NAME>
+					<DESC>
+						<L-2>32 bit signed integer</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>32</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>2C</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>float32</SHORT-NAME>
+					<DESC>
+						<L-2>32 bit floating-point </L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>32</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>IEEE754</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>float64</SHORT-NAME>
+					<DESC>
+						<L-2>64 bit floating-point</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>64</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>IEEE754</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+				<SW-BASE-TYPE>
+					<SHORT-NAME>boolean</SHORT-NAME>
+					<DESC>
+						<L-2>boolean, 0 = FALSE; 1 = TRUE</L-2>
+					</DESC>
+					<CATEGORY>FIXED_LENGTH</CATEGORY>
+					<BASE-TYPE-SIZE>8</BASE-TYPE-SIZE>
+					<BASE-TYPE-ENCODING>NONE</BASE-TYPE-ENCODING>
+				</SW-BASE-TYPE>
+			</ELEMENTS>
+		</AR-PACKAGE>
+	</TOP-LEVEL-PACKAGES>
+</AUTOSAR>

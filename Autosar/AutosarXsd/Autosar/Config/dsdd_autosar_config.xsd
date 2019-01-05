@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2009 dSPACE GmbH -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="DataDictionary">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Configuration" type="Configuration"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Configuration">
+		<xs:sequence>
+			<xs:element name="AUTOSAR" type="AUTOSAR"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AUTOSAR">
+		<xs:sequence>
+			<xs:element name="Settings">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SupportedArVersions">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ArVersion" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="AutosarVersion" type="_ArVersion"/>
+												<xs:element name="Revision" type="xs:normalizedString"/>
+												<xs:element name="SchemaFile" type="xs:normalizedString"/>
+												<xs:element name="TransformationFileExport" type="xs:normalizedString" minOccurs="0"/>
+												<xs:element name="TransformationFileImport" type="xs:normalizedString" minOccurs="0"/>
+												<xs:element name="BaseTypeGenericFile" type="xs:normalizedString"/>
+												<xs:element name="ImportTemplate" type="xs:normalizedString" minOccurs="0"/>
+												<xs:element name="ExportTemplate" type="xs:normalizedString" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NameTemplates">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NameTemplate" type="KeyValuePair" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeyValuePair">
+		<xs:attribute name="Key" type="xs:string"/>
+		<xs:attribute name="Value" type="xs:string"/>
+	</xs:complexType>
+	<xs:simpleType name="_ArVersion" final="list">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2.1"/>
+			<xs:enumeration value="3.0"/>
+			<xs:enumeration value="3.1"/>
+			<xs:enumeration value="3.2"/>
+			<xs:enumeration value="4.0"/>
+			<xs:enumeration value="4.1"/>
+			<xs:enumeration value="4.2"/>
+			<xs:enumeration value="4.3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="_PatternOnOff" final="list">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="On"/>
+			<xs:enumeration value="Off"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="_ArExportStrategy" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OneFileForAllPackages"/>
+			<xs:enumeration value="OneFilePerPackage"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="_ArImportStrategy" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Merge"/>
+			<xs:enumeration value="Overwrite"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

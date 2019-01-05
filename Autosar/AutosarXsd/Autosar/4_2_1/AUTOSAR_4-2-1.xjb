@@ -1,0 +1,27 @@
+<jxb:bindings version="1.0" 
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb" 
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+               jxb:extensionBindingPrefixes="xjc">               
+    <jxb:bindings>
+       <jxb:globalBindings typesafeEnumMaxMembers="2000" underscoreBinding = "asCharInWord">
+	   <xjc:superClass name="com.syh.Shape"/>
+       </jxb:globalBindings>
+    </jxb:bindings>             
+    
+  <jxb:bindings schemaLocation="AUTOSAR_4-2-1.xsd" node="/xs:schema"> 
+    <jxb:schemaBindings>
+      <jxb:package name="Ar421"/>
+    </jxb:schemaBindings> 
+    <jxb:bindings node="//xs:complexType[@name='COMPU-SCALES']"> 
+      <!-- resolve name collision with element "COMPU-SCALES" -->
+	  <jxb:class name="COMPUT_SCALES_COMPLEX"/>
+      <jxb:property name="COMPUT_SCALES_COMPLEX"/> 
+	</jxb:bindings>
+	<jxb:bindings node="//xs:complexType[@name='TARGET-I-PDU-REF']"> 
+      <!-- resolve name collision with element "TARGET-I-PDU-REF" -->
+      <jxb:class name="TARGET_I_PDU_REF_COMPLEX"/>
+      <jxb:property name="TARGET_I_PDU_REF_COMPLEX"/> 
+	</jxb:bindings>
+  </jxb:bindings> 
+</jxb:bindings>
