@@ -11,7 +11,7 @@ package DrsSim;
  */
 import javax.xml.bind.Marshaller;
 import javax.xml.stream.*;
-import DrsLib.Global;
+import DrsClass.Global;
 
 public class DrsMarshallerListener extends Marshaller.Listener {
 

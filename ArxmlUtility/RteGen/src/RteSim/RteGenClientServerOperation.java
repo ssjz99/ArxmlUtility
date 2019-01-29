@@ -5,7 +5,7 @@
  */
 package RteSim;
 
-import ArxmlLib.*;
+import AutosarClass.*;
 import AutoSarTools.*;
 import java.util.*;
 

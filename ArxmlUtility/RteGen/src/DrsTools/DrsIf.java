@@ -6,8 +6,8 @@
 package DrsTools;
 
 import AutoSarTools.AutoSarInterface;
-import DrsLib.*;
-import ArxmlLib.*;
+import DrsClass.*;
+import AutosarClass.*;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -284,7 +284,7 @@ public class DrsIf {
                 sub_struct.setName(ele.getSHORTNAME().getValue());
                 struct.getScalarAndPointerAndArray().add(sub_struct);
             } else if (o instanceof APPLICATIONPRIMITIVEDATATYPE) {
-                DrsLib.Scalar sub_scalar = getScalar((APPLICATIONPRIMITIVEDATATYPE) o, in);
+                DrsClass.Scalar sub_scalar = getScalar((APPLICATIONPRIMITIVEDATATYPE) o, in);
                 sub_scalar.setName(ele.getSHORTNAME().getValue());
                 struct.getScalarAndPointerAndArray().add(sub_scalar);
             }

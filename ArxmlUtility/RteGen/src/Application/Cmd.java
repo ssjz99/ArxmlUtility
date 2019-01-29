@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Application;
-import ArxmlLib.*;
+import AutosarClass.*;
 import AutoSarTools.AutoSarInterface;
 import DrsSim.DrsGen;
 import javax.xml.bind.*;

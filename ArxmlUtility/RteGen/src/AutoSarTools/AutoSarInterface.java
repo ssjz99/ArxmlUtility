@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package AutoSarTools;
-import ArxmlLib.*;
+import AutosarClass.*;
 import java.io.PrintStream;
 import java.util.*;
 

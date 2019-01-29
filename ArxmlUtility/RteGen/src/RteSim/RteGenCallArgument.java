@@ -6,7 +6,7 @@
 package RteSim;
 
 import AutoSarTools.*;
-import ArxmlLib.*;
+import AutosarClass.*;
 
 /**
  *

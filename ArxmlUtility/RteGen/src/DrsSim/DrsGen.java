@@ -6,8 +6,8 @@
 package DrsSim;
 
 import AutoSarTools.*;
-import ArxmlLib.*;
-import DrsLib.*;
+import AutosarClass.*;
+import DrsClass.*;
 import DrsTools.*;
 import RteSim.*;
 import static RteSim.RteGen.SIM_CAL_PREFIX;
@@ -51,8 +51,8 @@ public class DrsGen {
     }
     public void generate(APPLICATIONSWCOMPONENTTYPE swc) {
         try {
-            DrsLib.Global drs = new DrsLib.Global();
-            DrsLib.File drs_rte_c = new DrsLib.File();
+            DrsClass.Global drs = new DrsClass.Global();
+            DrsClass.File drs_rte_c = new DrsClass.File();
             drs_rte_c.setName(String.format("Rte_%s.c", swc.getSHORTNAME().getValue()));            
             generateFunctions(swc).forEach((o) -> {
                 drs_rte_c.getScalarAndPointerAndArray().add(o);
@@ -77,7 +77,7 @@ public class DrsGen {
             FileWriter output = new FileWriter(unformatted_drs);
             XMLOutputFactory xof = XMLOutputFactory.newFactory();
             XMLStreamWriter xsw = xof.createXMLStreamWriter(output);
-            JAXBContext jaxbContext = JAXBContext.newInstance(DrsLib.Global.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(DrsClass.Global.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setListener(new DrsMarshallerListener(xsw));
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
