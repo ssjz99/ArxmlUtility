@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='AutosarLib' version='1.0'>
-	<schema type='-xmlschema' package='' name='AutosarClass'>
+	<schema type='-xmlschema' package='AutosarClass' name='AutosarClass'>
 		<xjc-options>
 			<xjc-option name='-extension' value='true'/>
 		</xjc-options>
