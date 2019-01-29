@@ -2,8 +2,6 @@
 <schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='DrsLib' version='1.0'>
 	<schema type='-xmlschema' package='DrsClass' name='DRS'>
 		<xjc-options>
-			<xjc-option name='-readOnly' value='true'/>
-			<xjc-option name='-npa' value='true'/>
 			<xjc-option name='-verbose' value='true'/>
 		</xjc-options>
 		<schema-sources>
